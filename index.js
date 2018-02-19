@@ -1,19 +1,14 @@
 'use strict';
 
-const axios = require('axios');
-const conf = require('conf');
+const Axios = require('axios');
+const Configstore = require('configstore');
 
-const config = new conf({
-    cwd: process.env['alfred_workflow_data']
-})
-
+const config = new Configstore('graphfred');
 const host = config.get('graphana.host');
-
-const client = axios.create({
+const client = Axios.create({
     baseURL: `${host}`,
     timeout: 1000,
 });
-
 
 client.get('/api/search', {
     params: {
